@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.etienne.webApp.modele.Employee;
 import com.etienne.webApp.repository.EmployeeProxy;
 
 import jakarta.annotation.PostConstruct;
@@ -23,14 +24,6 @@ public class AppWebApplication implements CommandLineRunner {
 		SpringApplication.run(AppWebApplication.class, args);
 	}
 
-	@PostConstruct
-    public void afterStartup() {
-        // Code à exécuter après le démarrage de l'application
-		org.slf4j.Logger logger = LoggerFactory.getLogger(AppWebApplication.class);
-		logger.info("************POST**************************");
-        employeeProxy.getEmployees(); // Appel de la méthode de EmployeeProxy
-    }
-	
     @Autowired
     private CustomProperties properties;
 	
@@ -38,12 +31,17 @@ public class AppWebApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 		 System.out.println(properties.getApiUrl());
-		
-		 org.slf4j.Logger logger = LoggerFactory.getLogger(AppWebApplication.class);
-//		  logger.debug("**************************************");
-//	       logger.info("**************************************");
-//	       logger.error("**************************************");
-		
+		 
+		 Employee emp = new Employee();
+		 emp.setFirstName("baillif");
+		 emp.setLastName("etienne");
+		 emp.setMail("mail@gmail.com");
+		 emp.setPassword("fdp");
+		  employeeProxy.createEmployee(emp);
+		  //employeeProxy.getEmployees(); // Appel de la méthode de EmployeeProxy
+		  //employeeProxy.getEmployee(2);
+		  //employeeProxy.deleteEmployee(1);
+		  //employeeProxy.updateEmployee(emp);
 	}
 
 }
